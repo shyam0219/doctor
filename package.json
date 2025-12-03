@@ -1,0 +1,25 @@
+{
+  "name": "company-doktor",
+  "version": "1.0.0",
+  "description": "Company Doktor - Professional Business Consulting Landing Page",
+  "main": "index.html",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'No build step required - static site'",
+    "deploy": "netlify deploy --prod"
+  },
+  "keywords": [
+    "business-consulting",
+    "company-doctor",
+    "keeada-management"
+  ],
+  "author": "Bashar Yousif - Keeada Management",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "nodemailer": "^6.9.7",
+    "busboy": "^1.6.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  }
+}
