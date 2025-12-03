@@ -738,7 +738,7 @@ document.addEventListener('DOMContentLoaded', function() {
     new ScrollAnimations();
     new CounterAnimation();
     new ScrollToTop();
-    new ContactForm();
+    //new ContactForm();
     new ExpertApplicationForm();
     new TestimonialsCarousel();
     
