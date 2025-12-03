@@ -274,8 +274,9 @@ class ContactForm {
     async handleSubmit(e) {
         e.preventDefault();
         
-        // Get form data
         const formData = new FormData(this.form);
+
+        // Read values for validation
         const data = {
             name: formData.get('name'),
             company: formData.get('company'),
@@ -284,7 +285,6 @@ class ContactForm {
             service: formData.get('service'),
             message: formData.get('message'),
             consent: formData.get('consent'),
-            timestamp: new Date().toISOString()
         };
         
         // Validate
@@ -293,28 +293,25 @@ class ContactForm {
             return;
         }
         
-        // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(data.email)) {
             this.showMessage('Vänligen ange en giltig e-postadress.', 'error');
             return;
         }
         
-        // Show loading state
+        // Button loading state
         const submitButton = this.form.querySelector('button[type="submit"]');
         const originalButtonText = submitButton.innerHTML;
         submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Skickar...';
         submitButton.disabled = true;
         
         try {
-            // Simulate API call (replace with actual endpoint)
-            await this.submitForm(data);
+            // 🔑 Send directly to Formspree using the form's action + method
+            await this.submitForm(formData);
             
-            // Success
             this.showMessage('Tack för din förfrågan! Vi återkommer inom 24 timmar.', 'success');
             this.form.reset();
             
-            // Track conversion (if analytics is set up)
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'conversion', {
                     'send_to': 'AW-XXXXXXXXX/XXXXXXXXXXXXXX',
@@ -326,37 +323,34 @@ class ContactForm {
             console.error('Form submission error:', error);
             this.showMessage('Ett fel uppstod. Vänligen försök igen eller kontakta oss direkt.', 'error');
         } finally {
-            // Restore button
             submitButton.innerHTML = originalButtonText;
             submitButton.disabled = false;
         }
     }
     
-    async submitForm(data) {
-        // Send to Netlify Function
-        return fetch('/.netlify/functions/contact-form', {
-            method: 'POST',
+    async submitForm(formData) {
+        return fetch(this.form.action, {
+            method: this.form.method,
+            body: formData,
             headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => {
+                'Accept': 'application/json'
+            }
+        }).then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            return response.json();
+            // Formspree often returns empty body, so we don't rely on JSON
+            return response.text().catch(() => null);
         });
     }
     
     showMessage(message, type) {
+        this.messageDiv.style.display = 'block';
         this.messageDiv.textContent = message;
         this.messageDiv.className = `form-message ${type}`;
         
-        // Scroll to message
         this.messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         
-        // Hide after 5 seconds if success
         if (type === 'success') {
             setTimeout(() => {
                 this.messageDiv.style.display = 'none';
@@ -364,6 +358,7 @@ class ContactForm {
         }
     }
 }
+
 
 // ================================
 // Smooth Scroll for CTA Buttons
