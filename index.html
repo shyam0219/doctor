@@ -1165,8 +1165,8 @@
                 </div>
                 
                 <div class="contact-form-wrapper">
-                    <form class="contact-form" id="contactForm" 
-      action="https://formsubmit.co/bashar@keeada.org" 
+                    <form class="contact-form" id="contactForm"
+      action="https://formspree.io/f/mjknoweb"
       method="POST">
     <div class="form-group">
         <label for="name">Namn *</label>
@@ -1204,7 +1204,8 @@
     
     <div class="form-group">
         <label for="message">Berätta om dina utmaningar *</label>
-        <textarea id="message" name="message" rows="5" required placeholder="Beskriv kort vilka utmaningar ert företag står inför..."></textarea>
+        <textarea id="message" name="message" rows="5" required
+                  placeholder="Beskriv kort vilka utmaningar ert företag står inför..."></textarea>
     </div>
     
     <div class="form-group checkbox-group">
@@ -1214,18 +1215,20 @@
         </label>
     </div>
 
-    <!-- FormSubmit settings -->
+    <!-- Formspree options -->
     <input type="hidden" name="_subject" value="Nytt meddelande från CompanyDoktor.com">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_language" value="sv">
+    <!-- Optional: send user back to your site after submit -->
+    <!-- <input type="hidden" name="_next" value="https://companydoktor.com/tack.html"> -->
 
     <button type="submit" class="btn btn-primary btn-large btn-block">
         <i class="fas fa-paper-plane"></i>
         Skicka förfrågan
     </button>
-    
+
     <div class="form-message" id="formMessage"></div>
 </form>
+
 
                 </div>
             </div>
