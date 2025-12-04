@@ -254,6 +254,43 @@ section {
     font-weight: var(--font-weight-bold);
 }
 
+
+/* Fix header wrapping into two lines */
+.header .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;           /* keep brand + menu on one row */
+}
+
+/* Brand: keep icon + text on one line */
+.nav-brand {
+    white-space: nowrap;
+}
+
+/* Right side: nav list + language toggle + CTA all in one row */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 1.5rem;                 /* slightly smaller than var(--spacing-lg) */
+}
+
+/* Nav links in one row, don’t wrap */
+.nav-list {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1.25rem;                /* slightly tighter spacing */
+    white-space: nowrap;
+}
+
+/* Prevent the button / language toggle from breaking into two lines */
+.language-toggle,
+.nav-menu .btn {
+    white-space: nowrap;
+}
+
+
 /* ================================
    Buttons
    ================================ */
@@ -325,6 +362,7 @@ section {
     align-items: center;
     padding-top: 80px;
     overflow: hidden;
+    padding-top: 3rem;
 }
 
 .hero-background {
@@ -2048,5 +2086,16 @@ section {
     
     .result-number {
         font-size: 2.5rem;
+    }
+}
+
+/* Add space between logo/brand and first menu item on desktop */
+@media (min-width: 769px) {
+    .nav {
+        align-items: center;
+    }
+
+    .nav-brand {
+        margin-right: 2rem;   /* space between "Company Doktor" and "Hem" */
     }
 }
